@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Code Playground</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.41.0/codemirror.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.41.0/codemirror.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.41.0/mode/javascript/javascript.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.41.0/mode/css/css.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.41.0/mode/htmlembedded/htmlembedded.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.41.0/addon/hint/show-hint.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.41.0/addon/hint/html-hint.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.41.0/addon/hint/css-hint.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.41.0/addon/hint/javascript-hint.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.41.0/addon/edit/closebrackets.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.41.0/addon/scroll/scrollpastend.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.41.0/addon/hint/show-hint.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.41.0/theme/icecoder.css">
+    <style>
+        /* width */
+            ::-webkit-scrollbar {
+                width: 10px;
+            }
+
+            /* Track */
+            ::-webkit-scrollbar-track {
+                background: #111110; 
+            }
+            
+            /* Handle */
+            ::-webkit-scrollbar-thumb {
+                background: #ffffff;
+                border-radius: 1000px;
+            }
+
+            /* Handle on hover */
+            ::-webkit-scrollbar-thumb:hover {
+                background: #ffffff; 
+            }
+
+            * {
+                outline: none;
+            }
+
+            .fab {
+                box-shadow: 10px 10px 50px black;
+                position: fixed;
+                display: inline-block;
+                width: 64px;
+                height: 64px;
+                text-align: center;
+                padding-top: 20px;
+                border-radius: 50%;
+                bottom: 20px;
+                left: 20px;
+                background: red;
+                cursor: pointer;
+                z-index: 999;
+                transform: rotate(0deg);
+            }
+
+            .a-box {
+                box-shadow: 10px 10px 50px gray;
+                position: fixed;
+                border-radius: 5px;
+                padding: 0;
+                bottom: 0;
+                left: 0;
+                height: 0;
+                width: 0;
+                background: rgb(230, 230, 230);
+                transform: rotate(90deg);
+                transition: 0.5s;
+                opacity: 0;
+                z-index: 1000;
+            }
+
+            #closeback {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: transparent;
+                z-index: 2;
+            }
+
+            .fab span {
+                color: white;
+                cursor: pointer;
+            }
+
+            #new-code-doc-info {
+                margin-top: 50px;
+                display: none;
+            }
+
+            .code-container {
+                border: 1px solid #ffffff;
+            }
+
+            body {
+                background: #1d1d1b;
+            }
+
+            .grid-container {
+                display: grid;
+                grid-template-columns: auto auto;
+                grid-template-rows: auto auto;
+                position: fixed;
+                height: 100%;
+                width: 100%;
+                z-index: 1;
+            }
+        </style>
+    <script>
+
+        function open() {
+        	var box = document.getElementById('box');
+          var fab = document.getElementById('fab');
+          
+          if (fab.style.transform == "rotate(0deg)") {
+          	
+          }
+        }
+
+        function openA() {
+            var box = document.getElementById('box');
+
+            box.style.bottom = "20px";
+            box.style.left = "100px";
+            box.style.padding = "15px";
+            box.style.transform = "rotate(0deg)";
+            box.style.width = "85%";
+            box.style.height = "90%";
+            box.style.opacity = "1";
+
+            document.getElementById('closeback').style.display = "block";
+        }
+
+        function closeA() {
+            box.style.bottom = "0";
+            box.style.left = "0";
+            box.style.padding = "0";
+            box.style.transform = "rotate(90deg)";
+            box.style.width = "0";
+            box.style.height = "0";
+            box.style.opacity = "0";
+
+            document.getElementById('closeback').style.display = "none";
+        }
+
+        function createCodeDocInfo() {
+            document.getElementById('new-code-doc-info').style.display = "block";
+        }
+
+    </script>
+</head>
+
+<body>
+    <div class="top-bar"></div>
+    <div id="closeback" onclick="closeA()"></div>
+    <div class="a-box" id="box">
+        <button onclick="createCodeDocInfo()" class="window-button waves-effect waves-teal btn purple lighten-2 z-depth-4">
+            New Code Doc
+        </button>
+        <div id="new-code-doc-info">
+            <div class="input-field col s6">
+                <input id="docname" type="text" class="validate">
+                <label for="docname">Code Document Name</label>
+            </div>
+        </div>
+    </div>
+    <div class="fab waves-effect" onclick="openA()">
+        <span id="fab" class="material-icons" onclick="openA()">
+            add
+        </span>
+    </div>
+    <div class="grid-container">
+        <div class="code-container">
+            <div id="codeeditor"></div>
+        </div>
+        <div class="code-container">
+            <div id="codeeditorjs"></div>
+        </div>
+        <div class="code-container">
+            <div id="codeeditorhtml"></div>
+        </div>
+        <div class="code-container"></div>
+
+        <script>
+            var editor = CodeMirror(document.getElementById("codeeditor"), {
+                value: "#test {\n\tposition: absolute;\n\twidth: auto;\n\theight: 50px;\n}\n",
+                mode: "css",
+                tabSize: 4,
+                lineNumbers: true,
+                firstLineNumber: 50,
+                extraKeys: {
+                    "Ctrl-Space": "autocomplete"
+                },
+                scrollPastEnd: true,
+                theme: "icecoder"
+            });
+
+            var editorjs = CodeMirror(document.getElementById("codeeditorjs"), {
+                value: "function test() {}",
+                mode: "javascript",
+                tabSize: 4,
+                lineNumbers: true,
+                firstLineNumber: 50,
+                extraKeys: {
+                    "Ctrl-Space": "autocomplete"
+                },
+                scrollPastEnd: true,
+                theme: "icecoder"
+            });
+
+            var editorhtml = CodeMirror(document.getElementById("codeeditorhtml"), {
+                value: "<html>\n\t<head>\n\t\t<title>\n\n\t\t</title>\n\t</head>\n\t<body>\n\n\t</body>\n</html>",
+                mode: "html",
+                tabSize: 4,
+                lineNumbers: true,
+                firstLineNumber: 50,
+                extraKeys: {
+                    "Ctrl-Space": "autocomplete"
+                },
+                scrollPastEnd: true,
+                theme: "icecoder"
+            });
+        </script>
+    </div>
+</body>
+
+</html>
